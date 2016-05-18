@@ -1,0 +1,14 @@
+{
+  "consul": "{{ .CONSUL }}",
+  "preStart": "/usr/local/bin/prestart.sh",
+  "services": [
+    {
+      "name": "kibana",
+      "port": 5601,
+      "health": "/usr/local/bin/health.sh",
+      "poll": 10,
+      "ttl": 25,
+      "tags": ["urlprefix-/kibana"]
+    }
+  ]
+}
