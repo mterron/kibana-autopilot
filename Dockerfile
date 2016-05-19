@@ -54,11 +54,11 @@ RUN adduser -D -H -g kibana kibana &&\
 	chown -R kibana:kibana /etc/containerpilot &&\
 	$(cat /etc/ssl/private/ca.pem >> /etc/ssl/certs/ca-certificates.crt;exit 0)
 
-#USER kibana
 ENV PATH=$PATH:/opt/kibana/bin
 
 # Add our configuration files and scripts
 COPY bin/* /usr/local/bin/
 COPY containerpilot.json /etc/containerpilot/containerpilot.json
 
+USER kibana
 CMD ["/usr/local/bin/startup.sh"]

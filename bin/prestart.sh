@@ -18,7 +18,7 @@ replace() {
 
 # Wait till Elasticsearch is available
 log "Waiting for Elasticsearch data node..."
-until (curl -Ls --fail "${CONSUL}/v1/health/service/elasticsearch-data?passing" | jq -e -r '.[0].ServiceAddress' >/dev/null); do
+until (curl -Ls --fail "${CONSUL}/v1/health/service/elasticsearch-data?passing" | jq -e -r '.[0].Service.Address' >/dev/null); do
     sleep 20
 done
 
