@@ -20,7 +20,6 @@ until [ $n -ge 120 ]; do
 		n=$((n+2))
 	done
 	log "Consul is now available [${n}s], starting up Kibana"
-#	su-exec kibana:kibana /opt/containerpilot/containerpilot /opt/kibana/bin/kibana
 	exec /opt/containerpilot/containerpilot /opt/kibana/bin/kibana
 done
 loge "Consul unavailable, aborting"

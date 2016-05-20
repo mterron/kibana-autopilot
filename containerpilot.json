@@ -8,7 +8,7 @@
       "health": "/usr/local/bin/health.sh",
       "poll": 10,
       "ttl": 25,
-      "tags": ["urlprefix-kibana"]
+      "tags": ["urlprefix-/"]
     }
   ]
 }

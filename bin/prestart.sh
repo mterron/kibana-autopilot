@@ -24,7 +24,4 @@ done
 
 log "Elasticsearch is now available, configuring Kibana"
 replace
-log "Installing plugins"
-#kibana plugin -i vectormap -u https://github.com/stormpython/vectormap/archive/master.zip
-#kibana plugin -i elasticsearch/marvel/latest
 exit 0

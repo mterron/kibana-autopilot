@@ -14,11 +14,6 @@ RUN echo http://dl-6.alpinelinux.org/alpine/v3.3/community >> /etc/apk/repositor
 		su-exec \
 		tzdata
 
-# We don't need to expose these ports in order for other containers on Triton
-# to reach this container in the default networking environment, but if we
-# leave this here then we get the ports as well-known environment variables
-# for purposes of linking.
-EXPOSE 5601
 
 WORKDIR /tmp
 # Add Containerpilot and set its configuration path
@@ -42,19 +37,28 @@ RUN mkdir -p /opt && \
 	ln -sf /usr/bin/node /opt/kibana/node/bin
 
 
+# We don't need to expose these ports in order for other containers on Triton
+# to reach this container in the default networking environment, but if we
+# leave this here then we get the ports as well-known environment variables
+# for purposes of linking.
+EXPOSE 5601
+ENV PATH=$PATH:/opt/kibana/bin
+
 # Create and take ownership over required directories
 # Copy internal CA certificate bundle.
 COPY ca.pem /etc/ssl/private/
 # Create and take ownership over required directories, update CA
 RUN adduser -D -H -g kibana kibana &&\
 	adduser kibana kibana &&\
-	chown -R kibana:kibana /opt &&\
 	mkdir -p /etc/containerpilot &&\
 	chmod -R g+w /etc/containerpilot &&\
+	kibana plugin --install elasticsearch/marvel/2.3.3 &&\
+	kibana plugin --install kibana/timelion &&\
+	kibana plugin --install elastic/sense &&\
 	chown -R kibana:kibana /etc/containerpilot &&\
+	chown -R kibana:kibana /opt &&\
 	$(cat /etc/ssl/private/ca.pem >> /etc/ssl/certs/ca-certificates.crt;exit 0)
 
-ENV PATH=$PATH:/opt/kibana/bin
 
 # Add our configuration files and scripts
 COPY bin/* /usr/local/bin/
