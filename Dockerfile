@@ -14,7 +14,6 @@ RUN echo http://dl-6.alpinelinux.org/alpine/v3.3/community >> /etc/apk/repositor
 		su-exec \
 		tzdata
 
-
 WORKDIR /tmp
 # Add Containerpilot and set its configuration path
 ENV CONTAINERPILOT_VERSION=2.1.2 \
@@ -36,11 +35,6 @@ RUN mkdir -p /opt && \
 	rm -f /opt/kibana/node/bin/node &&\
 	ln -sf /usr/bin/node /opt/kibana/node/bin
 
-
-# We don't need to expose these ports in order for other containers on Triton
-# to reach this container in the default networking environment, but if we
-# leave this here then we get the ports as well-known environment variables
-# for purposes of linking.
 EXPOSE 5601
 ENV PATH=$PATH:/opt/kibana/bin
 
@@ -59,10 +53,13 @@ RUN adduser -D -H -g kibana kibana &&\
 	chown -R kibana:kibana /opt &&\
 	$(cat /etc/ssl/private/ca.pem >> /etc/ssl/certs/ca-certificates.crt;exit 0)
 
-
 # Add our configuration files and scripts
 COPY bin/* /usr/local/bin/
 COPY containerpilot.json /etc/containerpilot/containerpilot.json
+
+# If you build on top of this image, please provide this file
+# If you are using an internal CA
+ONBUILD COPY ca.pem /etc/ssl/private/
 ONBUILD COPY containerpilot.json /etc/containerpilot/containerpilot.json
 
 USER kibana
