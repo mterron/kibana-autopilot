@@ -63,6 +63,7 @@ RUN adduser -D -H -g kibana kibana &&\
 # Add our configuration files and scripts
 COPY bin/* /usr/local/bin/
 COPY containerpilot.json /etc/containerpilot/containerpilot.json
+ONBUILD COPY containerpilot.json /etc/containerpilot/containerpilot.json
 
 USER kibana
 CMD ["/usr/local/bin/startup.sh"]

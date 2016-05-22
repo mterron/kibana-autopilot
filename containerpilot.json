@@ -1,5 +1,10 @@
 {
   "consul": "{{ .CONSUL }}",
+  "logging": {
+    "level": "INFO",
+    "format": "default",
+    "output": "stdout"
+  },
   "preStart": "/usr/local/bin/prestart.sh",
   "services": [
     {
