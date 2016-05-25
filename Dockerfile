@@ -26,7 +26,7 @@ RUN	sha1sum -sc containerpilot-${CONTAINERPILOT_VERSION}.sha1.txt &&\
 	rm -f containerpilot-${CONTAINERPILOT_VERSION}.*
 
 # get Kibana release
-ENV KIBANA_VERSION=4.5.0
+ENV KIBANA_VERSION=4.5.1
 ADD	https://download.elastic.co/kibana/kibana/kibana-${KIBANA_VERSION}-linux-x64.tar.gz /tmp/
 RUN mkdir -p /opt && \
 	tar xzf /tmp/kibana-${KIBANA_VERSION}-linux-x64.tar.gz &&\
