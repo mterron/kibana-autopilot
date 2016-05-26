@@ -24,6 +24,6 @@ done
 
 log "Elasticsearch is now available, configuring Kibana"
 # Initialise Logstash index
-echo "<30>$(date '+%b %d %H:%M:%S') $HOSTNAME startup: Initialising Logstash" | nc -w 60 logstash-syslog.service.consul 3164
+echo "<30>$(date '+%b %d %H:%M:%S') $HOSTNAME startup: Initialising Logstash" | nc -w 60 syslog.service.consul 3164
 replace
 exit 0
