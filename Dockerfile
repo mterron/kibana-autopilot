@@ -46,11 +46,11 @@ RUN adduser -D -H -g kibana kibana &&\
 	adduser kibana kibana &&\
 	mkdir -p /etc/containerpilot &&\
 	chmod -R g+w /etc/containerpilot &&\
-	chown -R kibana:kibana /etc/containerpilot &&\
-	chown -R kibana:kibana /opt &&\
 	kibana plugin --install elasticsearch/marvel/2.3.3 &&\
 	kibana plugin --install elastic/sense &&\
-	kibana plugin --install kibana/timelion &&\
+	kibana plugin --install kibana/timelion ;\
+	chown -R kibana:kibana /etc/containerpilot &&\
+	chown -R kibana:kibana /opt &&\
 	$(cat /etc/ssl/private/ca.pem >> /etc/ssl/certs/ca-certificates.crt;exit 0)
 
 # Add our configuration files and scripts
