@@ -36,13 +36,13 @@ if [ $n -ge 120 ]; then {
 fi
 
 log "Consul is now available [${n}s], starting up Kibana"
-# Wait till Elasticsearch is available
-log "Waiting for Elasticsearch data node..."
-until (curl -Ls --fail "${CONSUL}/v1/health/service/elasticsearch-data?passing" | jq -e -r '.[0].Service.Address' >/dev/null); do
-    sleep 20
+# Wait till Logstash is available
+log "Waiting for Logstash..."
+until (curl -Ls --fail "${CONSUL}/v1/health/service/logstash?passing" | jq -e -r '.[0].Service.Address' >/dev/null); do
+    sleep 10
 done
 
-log "Elasticsearch is now available, configuring Kibana"
+log "Logstash is now available, configuring Kibana"
 # Initialise Logstash index
 echo "<30>$(date '+%b %d %H:%M:%S') $HOSTNAME startup: Initialising Logstash" | nc -w 60 syslog.service.consul 3164
 replace
