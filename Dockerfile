@@ -46,8 +46,8 @@ RUN adduser -D -H -g kibana kibana &&\
 	adduser kibana kibana &&\
 	mkdir -p /etc/containerpilot &&\
 	chmod -R g+w /etc/containerpilot &&\
-	kibana plugin --install elasticsearch/marvel/2.3.3 &&\
 	kibana plugin --install kibana/timelion &&\
+	kibana plugin --install elasticsearch/marvel/2.3.3 &&\
 	kibana plugin --install elastic/sense &&\
 	chown -R kibana:kibana /etc/containerpilot &&\
 	chown -R kibana:kibana /opt &&\
