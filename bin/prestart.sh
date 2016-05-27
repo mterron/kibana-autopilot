@@ -38,7 +38,7 @@ fi
 log "Consul is now available [${n}s], starting up Kibana"
 # Wait till Logstash is available
 log "Waiting for Logstash..."
-until (curl -Ls --fail "${CONSUL}/v1/health/service/logstash?passing" | jq -e -r '.[0].Service.Address' >/dev/null); do
+until (curl -Ls --fail "${CONSUL}/v1/health/service/syslog?passing" | jq -e -r '.[0].Service.Address' >/dev/null); do
     sleep 10
 done
 
