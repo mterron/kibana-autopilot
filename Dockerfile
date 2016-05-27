@@ -63,4 +63,4 @@ ONBUILD COPY ca.pem /etc/ssl/private/
 ONBUILD COPY containerpilot.json /etc/containerpilot/containerpilot.json
 
 USER kibana
-CMD ["/opt/bin/containerpilot","/opt/bin/kibana"]
+CMD ["/opt/containerpilot/containerpilot","/opt/kibana/bin/kibana"]
