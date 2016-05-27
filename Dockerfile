@@ -32,14 +32,15 @@ RUN mkdir -p /opt && \
 	tar xzf /tmp/kibana-${KIBANA_VERSION}-linux-x64.tar.gz &&\
 	mv -f kibana-${KIBANA_VERSION}-linux-x64/ /opt/kibana &&\
 	rm -f kibana-${KIBANA_VERSION}-linux-x64.tar.gz &&\
-	rm -f /opt/kibana/node/bin/node &&\
-	ln -sf /usr/bin/node /opt/kibana/node/bin
+	rm -f /opt/kibana/node/bin/* &&\
+	ln -sf /usr/bin/node /opt/kibana/node/bin &&\
+	ln -sf /usr/bin/npm /opt/kibana/node/bin
 
 EXPOSE 5601
 ENV PATH=$PATH:/opt/kibana/bin
 
 # Create and take ownership over required directories
-# Copy internal CA certificate bundle.
+# Copy CA certificate bundle.
 COPY ca.pem /etc/ssl/private/
 # Create and take ownership over required directories, update CA
 RUN adduser -D -H -g kibana kibana &&\
@@ -48,7 +49,7 @@ RUN adduser -D -H -g kibana kibana &&\
 	chmod -R g+w /etc/containerpilot &&\
 	kibana plugin --install elasticsearch/marvel/2.3.3 &&\
 	kibana plugin --install elastic/sense &&\
-	kibana plugin --install kibana/timelion ;\
+#	kibana plugin --install kibana/timelion &&\
 	chown -R kibana:kibana /etc/containerpilot &&\
 	chown -R kibana:kibana /opt &&\
 	$(cat /etc/ssl/private/ca.pem >> /etc/ssl/certs/ca-certificates.crt;exit 0)

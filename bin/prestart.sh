@@ -25,6 +25,7 @@ fi
 # Wait up to 2 minutes for Consul to be available
 log "Waiting for Consul availability..."
 n=0
+kibana plugin --quiet --install kibana/timelion
 until [ $n -ge 120 ]||(curl -fsL --connect-timeout 1 "${CONSUL}/v1/status/leader" &> /dev/null); do
     sleep 2
     n=$((n+2))
