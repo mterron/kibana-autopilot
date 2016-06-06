@@ -1,0 +1,2 @@
+#!/usr/bin/with-contenv /bin/ash
+exec s6-setuidgid kibana /opt/containerpilot/containerpilot /opt/kibana/bin/kibana
