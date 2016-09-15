@@ -14,7 +14,7 @@ RUN apk -f -q --progress --no-cache upgrade &&\
 
 ENV CONTAINERPILOT_VERSION=2.2.0 \
 	CONTAINERPILOT=file:///etc/containerpilot/containerpilot.json \
-	CONSUL_VERSION=0.6.4 \
+	CONSUL_VERSION=0.7.0 \
 	S6_VERSION=1.18.1.3
 
 WORKDIR /tmp
