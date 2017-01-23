@@ -10,7 +10,7 @@ RUN apk -f -q --progress --no-cache upgrade &&\
 		jq \
 		nodejs \
 		openssl \
-		tar &&\
+		tar \
 		tzdata
 
 ENV CONTAINERPILOT_VERSION=2.6.0 \
