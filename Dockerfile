@@ -79,8 +79,8 @@ RUN echo "Downloading S6 Overlay" &&\
 	chmod +x /bin/* &&\
 # Download Kibana release
 	echo "Downloading Kibana" &&\
-	curl -LO# https://artifacts.elastic.co/downloads/kibana/kibana-${KIBANA_VERSION}-linux-x86_64.tar.gz &&\
-	mkdir -p /opt/kibana && \
+	curl -sSLO# https://artifacts.elastic.co/downloads/kibana/kibana-${KIBANA_VERSION}-linux-x86_64.tar.gz &&\
+	mkdir -p /usr/share/kibana && \
 	tar xzf /tmp/kibana-${KIBANA_VERSION}-linux-x86_64.tar.gz &&\
 	mv kibana-${KIBANA_VERSION}-linux-x86_64/* /usr/share/kibana/ &&\
 	rm -rf /tmp/* &&\
@@ -93,6 +93,7 @@ RUN echo "Downloading S6 Overlay" &&\
 	mkdir -p /etc/containerpilot &&\
 	chmod -R g+w /etc/containerpilot &&\
 	chown -R kibana:kibana /etc/containerpilot &&\
+	chown -R kibana:kibana /usr/share/kibana &&\
 	cat /etc/ssl/private/ca.pem >> /etc/ssl/certs/ca-certificates.crt
 
 EXPOSE 5601 8301
