@@ -10,10 +10,10 @@ loge() {
 replace() {
 	# Point to the correct Elasticsearch endpoint using the default dns search path
 	REPLACEMENT='s/# elasticsearch\.url: "http:\/\/localhost:9200"/elasticsearch.url: "http:\/\/elasticsearch-data.service.consul:9200"/'
-	sed -i "$REPLACEMENT" /opt/kibana/config/kibana.yml
+	sed -i "$REPLACEMENT" /usr/share/kibana/config/kibana.yml
 	# Quiet logging
 	REPLACEMENT='s/# logging\.quiet: false/logging.quiet: true/'
-	sed -i "$REPLACEMENT" /opt/kibana/config/kibana.yml    
+	sed -i "$REPLACEMENT" /usr/share/kibana/config/kibana.yml    
 }
 #------------------------------------------------------------------------------
 # Check that CONSUL_HTTP_ADDR environment variable exists
