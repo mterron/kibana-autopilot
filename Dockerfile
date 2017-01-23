@@ -16,7 +16,7 @@ ENV CONTAINERPILOT_VERSION=2.6.0 \
 	CONTAINERPILOT=file:///etc/containerpilot/containerpilot.json \
 	CONSUL_VERSION=0.7.2 \
 	S6_VERSION=1.18.1.3 \
-	KIBANA_VERSION=4.5.2 \
+	KIBANA_VERSION=5.1.2 \
 	PATH=$PATH:/usr/share/kibana/bin
 
 # Copy internal CA certificate bundle.
@@ -79,7 +79,7 @@ RUN echo "Downloading S6 Overlay" &&\
 	chmod +x /bin/* &&\
 # Download Kibana release
 	echo "Downloading Kibana" &&\
-	curl -LO# https://download.elastic.co/kibana/kibana/kibana-${KIBANA_VERSION}-linux-x64.tar.gz &&\
+	curl -LO# https://artifacts.elastic.co/downloads/kibana/kibana-${KIBANA_VERSION}-linux-x64.tar.gz &&\
 	mkdir -p /opt/kibana && \
 	tar xzf /tmp/kibana-${KIBANA_VERSION}-linux-x64.tar.gz &&\
 	mv kibana-${KIBANA_VERSION}-linux-x64/* /usr/share/kibana/ &&\
