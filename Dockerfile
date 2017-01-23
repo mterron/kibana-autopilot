@@ -81,8 +81,8 @@ RUN echo "Downloading S6 Overlay" &&\
 	echo "Downloading Kibana" &&\
 	curl -LO# https://artifacts.elastic.co/downloads/kibana/kibana-${KIBANA_VERSION}-linux-x86_64.tar.gz &&\
 	mkdir -p /opt/kibana && \
-	tar xzf /tmp/kibana-${KIBANA_VERSION}-linux-x64.tar.gz &&\
-	mv kibana-${KIBANA_VERSION}-linux-x64/* /usr/share/kibana/ &&\
+	tar xzf /tmp/kibana-${KIBANA_VERSION}-linux-x86_64.tar.gz &&\
+	mv kibana-${KIBANA_VERSION}-linux-x86_64/* /usr/share/kibana/ &&\
 	rm -rf /tmp/* &&\
 	rm -f /usr/share/kibana/node/bin/* &&\
 	ln -sf /usr/bin/node /usr/share/kibana/node/bin &&\
