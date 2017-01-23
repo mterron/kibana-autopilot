@@ -10,7 +10,6 @@ RUN apk -f -q --progress --no-cache upgrade &&\
 		jq \
 		nodejs \
 		openssl \
-		tar \
 		tzdata
 
 ENV CONTAINERPILOT_VERSION=2.6.0 \
@@ -80,7 +79,7 @@ RUN echo "Downloading S6 Overlay" &&\
 	chmod +x /bin/* &&\
 # Download Kibana release
 	echo "Downloading Kibana" &&\
-	curl -LO# https://artifacts.elastic.co/downloads/kibana/kibana-${KIBANA_VERSION}-linux-x64.tar.gz &&\
+	curl -LO# https://artifacts.elastic.co/downloads/kibana/kibana-${KIBANA_VERSION}-linux-x86_64.tar.gz &&\
 	mkdir -p /opt/kibana && \
 	tar xzf /tmp/kibana-${KIBANA_VERSION}-linux-x64.tar.gz &&\
 	mv kibana-${KIBANA_VERSION}-linux-x64/* /usr/share/kibana/ &&\
