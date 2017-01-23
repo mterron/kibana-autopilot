@@ -1,18 +1,23 @@
-FROM kibana:alpine
+FROM alpine:3.4
 
 # Alpine packages
 RUN apk -f -q --progress --no-cache upgrade &&\
 	apk -f -q --progress --no-cache add \
 		bash \
 		curl \
+		ca-certificates \
 		dnsmasq \
 		jq \
+		nodejs \
+		openssl \
 		tzdata
 
 ENV CONTAINERPILOT_VERSION=2.6.0 \
 	CONTAINERPILOT=file:///etc/containerpilot/containerpilot.json \
 	CONSUL_VERSION=0.7.2 \
-	S6_VERSION=1.18.1.3
+	S6_VERSION=1.18.1.3 \
+	KIBANA_VERSION=4.5.2 \
+	PATH=$PATH:/usr/share/kibana/bin
 
 # Copy internal CA certificate bundle.
 COPY ca.pem /etc/ssl/private/
@@ -72,6 +77,18 @@ RUN echo "Downloading S6 Overlay" &&\
 	chown -R consul: /data &&\
 	chown -R consul: /etc/consul/ &&\
 	chmod +x /bin/* &&\
+# Download Kibana release
+	echo "Downloading Kibana" &&\
+	curl -LO# https://download.elastic.co/kibana/kibana/kibana-${KIBANA_VERSION}-linux-x64.tar.gz &&\
+	mkdir -p /opt/kibana && \
+	tar xzf /tmp/kibana-${KIBANA_VERSION}-linux-x64.tar.gz &&\
+	mv kibana-${KIBANA_VERSION}-linux-x64/* /usr/share/kibana/ &&\
+	rm -rf /tmp/* &&\
+	rm -f /usr/share/kibana/node/bin/* &&\
+	ln -sf /usr/bin/node /usr/share/kibana/node/bin &&\
+	ln -sf /usr/bin/npm /usr/share/kibana/node/bin &&\
+	adduser -D -H -g kibana kibana &&\
+	adduser kibana kibana &&\
 # Create and take ownership over required directories
 	mkdir -p /etc/containerpilot &&\
 	chmod -R g+w /etc/containerpilot &&\
