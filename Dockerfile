@@ -15,7 +15,7 @@ RUN apk -f -q --progress --no-cache upgrade &&\
 ENV CONTAINERPILOT_VERSION=2.6.0 \
 	CONTAINERPILOT=file:///etc/containerpilot/containerpilot.json \
 	CONSUL_VERSION=0.7.2 \
-	S6_VERSION=1.18.1.3 \
+	S6_VERSION=1.19.1.1 \
 	KIBANA_VERSION=5.1.2 \
 	PATH=$PATH:/usr/share/kibana/bin
 

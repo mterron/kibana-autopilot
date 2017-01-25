@@ -11,7 +11,7 @@ services:
   # ----------------------------------------------------------------------
   # Consul as a service discovery tier
   consul:
-    image: mterron/consul-betterscratch
+    image: mterron/consul
     labels:
       - triton.cns.services=consul
     restart: always
