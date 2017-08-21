@@ -1,4 +1,4 @@
-FROM alpine:3.4
+FROM alpine:3.6
 
 # Alpine packages
 RUN apk -f -q --progress --no-cache upgrade &&\
