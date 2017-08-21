@@ -12,11 +12,10 @@ RUN apk -f -q --progress --no-cache upgrade &&\
 		openssl \
 		tzdata
 
-ENV CONTAINERPILOT_VERSION=2.6.0 \
+ENV CONTAINERPILOT_VERSION=3.4.0 \
 	CONTAINERPILOT=file:///etc/containerpilot/containerpilot.json \
-	CONSUL_VERSION=0.7.2 \
-	S6_VERSION=1.19.1.1 \
-	KIBANA_VERSION=5.1.2 \
+	CONSUL_VERSION=0.9.2 \
+	KIBANA_VERSION=5.5.2 \
 	PATH=$PATH:/usr/share/kibana/bin
 
 # Copy internal CA certificate bundle.
@@ -45,11 +44,7 @@ ONBUILD COPY containerpilot.json /etc/containerpilot/containerpilot.json
 ONBUILD COPY consul.json /etc/consul/
 
 WORKDIR /tmp
-RUN echo "Downloading S6 Overlay" &&\
-	curl -LO# https://github.com/just-containers/s6-overlay/releases/download/v${S6_VERSION}/s6-overlay-amd64.tar.gz &&\
-	gunzip -c /tmp/s6-overlay-amd64.tar.gz | tar -xf - -C / &&\
-	rm -f s6-overlay-amd64.tar.gz &&\
-	echo "Downloading Containerpilot" &&\
+RUN 	echo "Downloading Containerpilot" &&\
 	curl -LO# https://github.com/joyent/containerpilot/releases/download/${CONTAINERPILOT_VERSION}/containerpilot-${CONTAINERPILOT_VERSION}.tar.gz &&\
 	echo "Downloading Containerpilot checksums" &&\
 	curl -LO# https://github.com/joyent/containerpilot/releases/download/${CONTAINERPILOT_VERSION}/containerpilot-${CONTAINERPILOT_VERSION}.sha1.txt &&\
@@ -101,4 +96,4 @@ EXPOSE 5601 8301
 # Put Consul data on a separate volume to avoid filesystem performance issues with Docker image layers
 VOLUME ["/data"]
 
-ENTRYPOINT ["/init"]
+ENTRYPOINT ["/opt/containerpilot/containerpilot"]
